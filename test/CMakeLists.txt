@@ -11,30 +11,8 @@ ENDIF ()
 
 
 IF (PAHO_WITH_SSL)
-    SET(OPENSSL_SEARCH_PATH "" CACHE PATH "Directory containing OpenSSL libraries and includes")
-
-    IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
-      SET(OPENSSL_SEARCH_PATH "/usr/local/opt/openssl")
-    ENDIF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
-
-    IF (WIN32)
-      SET(OPENSSL_SEARCH_PATH "C:/OpenSSL-Win64")
-      IF (DEFINED ENV{PAHO_WINDOWS_BUILD_BIT})
-        IF ($ENV{PAHO_WINDOWS_BUILD_BIT} STREQUAL "x86")
-          SET(OPENSSL_SEARCH_PATH "C:/OpenSSL-Win32")
-        ENDIF ()
-      ENDIF ()
-    ENDIF ()
-
-    FIND_PATH(OPENSSL_INCLUDE_DIR openssl/ssl.h
-        HINTS ${OPENSSL_SEARCH_PATH}/include)
-
-    MESSAGE(STATUS "OpenSSL hints: ${OPENSSL_SEARCH_PATH}")
-    MESSAGE(STATUS "OpenSSL headers found at ${OPENSSL_INCLUDE_DIR}")
-
-    INCLUDE_DIRECTORIES(
-        ${OPENSSL_INCLUDE_DIR}
-    )
+    hunter_add_package(OpenSSL)
+    find_package(OpenSSL REQUIRED)
 ENDIF ()
 
 IF (WIN32)
@@ -414,6 +392,8 @@ IF (PAHO_WITH_SSL)
 	TARGET_LINK_LIBRARIES(
 		test5
 		paho-mqtt3as
+		OpenSSL::SSL
+		OpenSSL::Crypto
 	)
 
 ADD_TEST(
@@ -478,6 +458,8 @@ ADD_EXECUTABLE(
 TARGET_LINK_LIBRARIES(
 	test6
 	paho-mqtt3a
+	OpenSSL::SSL
+	OpenSSL::Crypto
 )
 
 ADD_TEST(
@@ -498,6 +480,8 @@ ADD_EXECUTABLE(
 TARGET_LINK_LIBRARIES(
 	test8
 	paho-mqtt3a
+	OpenSSL::SSL
+	OpenSSL::Crypto
 )
 
 ADD_TEST(
@@ -555,6 +539,8 @@ ADD_EXECUTABLE(
 TARGET_LINK_LIBRARIES(
 	test9
 	paho-mqtt3a
+	OpenSSL::SSL
+	OpenSSL::Crypto
 )
 
 ADD_TEST(
@@ -605,6 +591,8 @@ ADD_EXECUTABLE(
 TARGET_LINK_LIBRARIES(
 	test95
 	paho-mqtt3a
+	OpenSSL::SSL
+	OpenSSL::Crypto
 )
 
 ADD_TEST(
@@ -655,6 +643,8 @@ ADD_EXECUTABLE(
 TARGET_LINK_LIBRARIES(
 	test10
 	paho-mqtt3c
+	OpenSSL::SSL
+	OpenSSL::Crypto
 )
 
 ADD_TEST(
@@ -723,6 +713,8 @@ ADD_EXECUTABLE(
 TARGET_LINK_LIBRARIES(
 	test11
 	paho-mqtt3a
+	OpenSSL::SSL
+	OpenSSL::Crypto
 )
 
 ADD_TEST(
@@ -791,4 +783,6 @@ ADD_EXECUTABLE(
 TARGET_LINK_LIBRARIES(
 	test_issue373
 	paho-mqtt3a
+	OpenSSL::SSL
+	OpenSSL::Crypto
 )
