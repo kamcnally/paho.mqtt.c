@@ -21,22 +21,22 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.0.0)
 
 include("cmake/HunterGate.cmake")
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.23.190.tar.gz"
-    SHA1 "bc7da329d2493201de28f0c2a5fcd4de1415c477"
+    URL "file:///media/kyle/Data/git/kamcnally/hunter.tar.gz"
+    SHA1 "4e3b844e49eff87c5079da29c39f6d9920f29aed"
 )
-
-PROJECT(paho.mqtt.c VERSION 1.3.0 LANGUAGES C)
-MESSAGE(STATUS "CMake version: " ${CMAKE_VERSION})
-MESSAGE(STATUS "CMake system name: " ${CMAKE_SYSTEM_NAME})
-
-SET(CMAKE_SCRIPTS "${CMAKE_SOURCE_DIR}/cmake")
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 ## build settings
 SET(PAHO_VERSION_MAJOR 1)
 SET(PAHO_VERSION_MINOR 3)
 SET(PAHO_VERSION_PATCH 0)
 SET(CLIENT_VERSION ${PAHO_VERSION_MAJOR}.${PAHO_VERSION_MINOR}.${PAHO_VERSION_PATCH})
+
+PROJECT("paho-mqtt-c" VERSION ${PAHO_VERSION_MAJOR}.${PAHO_VERSION_MINOR}.${PAHO_VERSION_PATCH} LANGUAGES C)
+MESSAGE(STATUS "CMake version: " ${CMAKE_VERSION})
+MESSAGE(STATUS "CMake system name: " ${CMAKE_SYSTEM_NAME})
+
+SET(CMAKE_SCRIPTS "${CMAKE_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 INCLUDE(GNUInstallDirs)
 
@@ -116,7 +116,7 @@ set(generated_dir "${CMAKE_CURRENT_BINARY_DIR}/generated")
 
 set(version_config "${generated_dir}/${PROJECT_NAME}ConfigVersion.cmake")
 set(project_config "${generated_dir}/${PROJECT_NAME}Config.cmake")
-set(targets_export_name "libpahomqttcTargets")
+set(targets_export_name "PahoMqttC")
 set(namespace "${PROJECT_NAME}::")
 
 include(CMakePackageConfigHelpers)
